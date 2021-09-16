@@ -15,8 +15,7 @@ void enter(){
         cout << "no" << endl;
     }
     else {
-        cout << "yes"
-        <<endl;
+        cout << "yes" << endl;
     }
     if (!fileNew.is_open()) {
         cout << "no" << endl;
@@ -25,7 +24,7 @@ void enter(){
         cout << "yes"
         <<endl;
     }
-    string str = "",s;
+    string str = "", s;
     
     while(true)
     {
@@ -38,7 +37,7 @@ void enter(){
     }
     ifstream input("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt"); //Открываешь первый файл для чтения
         ofstream output("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt"); //Открываешь второй файл для записи
-       // output << input.rdbuf();
+      
 
     while(true)
     {
