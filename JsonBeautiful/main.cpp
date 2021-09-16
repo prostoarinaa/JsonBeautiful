@@ -47,54 +47,6 @@ void enter(){
         output << str;
         
         if (!input.eof())
-<<<<<<< Updated upstream
-            output << "]\n";
-        else break;
-    }
-//    while(true)
-//    {
-//        getline(fileOld, str, '{');
-//        fileNew << str;
-//        if (!fileOld.eof())
-//            fileNew << "{\n";
-//        else break;
-//    }
-//    while(true)
-//    {
-//        getline(fileOld, str, '}');
-//        fileNew << str;
-//        if (!fileOld.eof())
-//            fileNew << "}\n";
-//        else break;
-//    }
-//    while(true)
-//    {
-//        getline(fileOld, str, ':');
-//        fileNew << str;
-//        if (!fileOld.eof())
-//            fileNew << ":  ";
-//        else break;
-//    }
-    fileOld.close();
-    fileNew.close();
-    input.close();
-    output.close();
-//    while (getline(fileOld, str))
-//    {
-//        s += str;
-//    }
-//    int i = -1;
-//    while (i < str.size())
-//    {
-//        i++;
-//        switch(str[i])
-//        {
-//            case '[':
-//                str[]
-//        }
-//
-//    }
-=======
             
             output << "]\n";
         else break;
@@ -300,6 +252,5 @@ int main()
             fileNew << '\n';
         else break;
     }
-
     return 0;
 }
