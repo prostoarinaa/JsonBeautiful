@@ -35,19 +35,19 @@ void enter(){
             fileNew << "[\n";
         else break;
     }
-    ifstream input("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt"); //Открываешь первый файл для чтения
-        ofstream output("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt"); //Открываешь второй файл для записи
-      
-
+    ifstream input("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
+        ofstream output("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
     while(true)
     {
-        
         getline(input, str, ']');
         output << str;
         
-        if (!input.eof())
-            
-            output << "]\n";
+        if (!input.eof()) {
+            if (str[str.length()-1] != '\n')
+                output << "\n]\n";
+            else
+                output << "]\n";
+        }
         else break;
     }
     input.close();
@@ -56,7 +56,6 @@ void enter(){
         ofstream output1("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt"); //Открываешь второй файл для записи
     while(true)
     {
-        
         getline(input1, str, '{');
         output1 << str;
         if (!input1.eof())
@@ -72,17 +71,20 @@ void enter(){
         
         getline(input2, str, '}');
         output2 << str;
-        if (!input2.eof())
-            output2 << "}\n";
+        if (!input2.eof()) {
+            if (str[str.length()-1] != '\n')
+                output2 << "\n}\n";
+            else
+                output2 << "}\n";
+        }
         else break;
     }
     input2.close();
     output2.close();
-    ifstream input3("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt"); //Открываешь первый файл для чтения
+    ifstream input3("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
         ofstream output3("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt"); //Открываешь второй файл для записи
     while(true)
     {
-        
         getline(input3, str, ':');
         output3 << str;
         if (!input3.eof())
@@ -138,13 +140,11 @@ void Tabulation() {
     vector <unsigned long> tab = {0};
     vector <Pair> PairVec1;
     vector <Pair> PairVec2;
-//    map<unsigned long, pairss > Pairs;
     unsigned long count = 0;
     while(true)
     {
         getline(fileOld, str, '\n');
         pos1 += str.size() - 1;
-       // count += pos1;
         if (str[str.size()-1] == '[') {
             Pair pair;
             PairVec1.push_back(pair);
@@ -156,10 +156,7 @@ void Tabulation() {
         else if (str[str.size()-1] == ']') {
             Pair pair;
             pair = PairVec1[PairVec1.size()-1];
-           // pair.Number2 = count;
             pair.Second = pos1;
-//            tab.pop_back();
-            //pair.CountTab = tab[tab.size()-1];
         }
         else if (str[str.size()-1] == '{') {
             Pair pair;
@@ -196,10 +193,7 @@ void Tabulation() {
     fileOld.close();
     fileNew.close();
 }
-int main()
-{
-    enter();
-    Tabulation();
+void LongStrind() {
     ifstream fileOld;
     ofstream fileNew;
     fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
@@ -234,10 +228,8 @@ int main()
         }
         if (str.length() <= 100)
             fileNew << str;
-        else{
+        else {
             while (str.length() > 100) {
-             
-               // fileNew << str;
                 fileNew << '\n';
                 timestr = str.substr(1+count, 100);
                 str = str.erase(1, 100+count);
@@ -251,5 +243,11 @@ int main()
             fileNew << '\n';
         else break;
     }
+}
+int main()
+{
+    enter();
+    Tabulation();
+    LongStrind();
     return 0;
 }
