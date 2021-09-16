@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E79497726F2005A00593996 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E79497626F2005A00593996 /* main.cpp */; };
+		4E79498226F22D4100593996 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E79498126F22D4100593996 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		4E79497326F2005A00593996 /* JsonBeautiful */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = JsonBeautiful; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E79497626F2005A00593996 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4E79498126F22D4100593996 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 		4E79497526F2005A00593996 /* JsonBeautiful */ = {
 			isa = PBXGroup;
 			children = (
-				4E79497626F2005A00593996 /* main.cpp */,
+				4E79498126F22D4100593996 /* main.cpp */,
 			);
 			path = JsonBeautiful;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E79497726F2005A00593996 /* main.cpp in Sources */,
+				4E79498226F22D4100593996 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
