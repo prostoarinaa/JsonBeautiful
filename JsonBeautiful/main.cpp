@@ -300,6 +300,6 @@ int main()
             fileNew << '\n';
         else break;
     }
->>>>>>> Stashed changes
+
     return 0;
 }
