@@ -171,8 +171,6 @@ void Tabulation() {
             pair = PairVec2[PairVec2.size()-1];
            // pair.Number2 = count;
             pair.Second = pos1;
-//            tab.pop_back();
-            //pair.CountTab = tab[tab.size()-1];
         }
         
         count++;
@@ -182,7 +180,7 @@ void Tabulation() {
             for(auto i = 0; i < tab.size(); i++){
                 tabstr += "   ";
             }
-            str = tabstr + str;
+            fileNew << tabstr;
             fileNew << str;
         }
         else break;
@@ -199,20 +197,20 @@ void LongStrind() {
     fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
     fileNew.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
     cout << "hjkhkj" << endl;
-    if (!fileOld.is_open()) {
-        cout << "no" << endl;
-    }
-    else {
-        cout << "yes"
-        <<endl;
-    }
-    if (!fileNew.is_open()) {
-        cout << "no" << endl;
-    }
-    else {
-        cout << "yes"
-        <<endl;
-    }
+//    if (!fileOld.is_open()) {
+//        cout << "no" << endl;
+//    }
+//    else {
+//        cout << "yes"
+//        <<endl;
+//    }
+//    if (!fileNew.is_open()) {
+//        cout << "no" << endl;
+//    }
+//    else {
+//        cout << "yes"
+//        <<endl;
+//    }
     string str, timestr;
     long isFirstStr = 0;
     while(true)
@@ -226,17 +224,31 @@ void LongStrind() {
             count++;
             tabstr += ' ';
         }
-        if (str.length() <= 100)
+        if (str.length() <= 100+count) {
+            
+            //fileNew << str;
             fileNew << str;
+           // fileNew << '\n';
+           // str = str.erase(1, str.length() + count);
+//            if(isFirstStr != 1)
+//                fileNew << tabstr << timestr;
+//            else
+//                fileNew << timestr;
+        }
         else {
-            while (str.length() > 100) {
+            while (str.length() > 100+count) {
                 fileNew << '\n';
-                timestr = str.substr(1+count, 100);
+                timestr = str.substr(1+count, 100+count);
+               // fileNew << '\n';
                 str = str.erase(1, 100+count);
                 if(isFirstStr != 1)
                     fileNew << tabstr << timestr;
                 else
                     fileNew << timestr;
+            }
+            if(str.length() <= 100+count) {
+                fileNew << '\n';
+                fileNew << tabstr << str;
             }
         }
         if (!fileOld.eof())
