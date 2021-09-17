@@ -8,27 +8,11 @@ using namespace std;
 void enter(){
     ifstream fileOld;
     ofstream fileNew;
-    fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+    fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringOLD.txt");
     fileNew.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-    cout << "hjkhkj" << endl;
-    if (!fileOld.is_open()) {
-        cout << "no" << endl;
-    }
-    else {
-        cout << "yes" << endl;
-    }
-    if (!fileNew.is_open()) {
-        cout << "no" << endl;
-    }
-    else {
-        cout << "yes"
-        <<endl;
-    }
     string str = "", s;
-    
     while(true)
     {
-       
         getline(fileOld, str, '[');
         fileNew << str;
         if (!fileOld.eof())
@@ -236,19 +220,28 @@ void LongStrind() {
 //                fileNew << timestr;
         }
         else {
+            string strForLast = "";
             while (str.length() > 100+count) {
-                fileNew << '\n';
-                timestr = str.substr(1+count, 100+count);
+               
+                timestr = str.substr(count, 100+count);
                // fileNew << '\n';
                 str = str.erase(1, 100+count);
-                if(isFirstStr != 1)
+               // str = str.erase(str.length());
+                strForLast = str;
+                if (strForLast.length() <= 100+count) continue;
+               // timestr = timestr.substr(timestr.length()-str.length()-1, timestr.length()-1);
+//               if(isFirstStr != 1)
                     fileNew << tabstr << timestr;
-                else
-                    fileNew << timestr;
+                fileNew << '\n';
+//                else
+//                    fileNew << timestr;
             }
             if(str.length() <= 100+count) {
+                timestr = timestr.erase(timestr.length()+1-strForLast.length());
+                fileNew << tabstr << timestr;
                 fileNew << '\n';
-                fileNew << tabstr << str;
+
+                fileNew << tabstr << strForLast;
             }
         }
         if (!fileOld.eof())
