@@ -79,8 +79,12 @@ public:
         {
             getline(input3, str, ':');
             output3 << str;
-            if (!input3.eof())
-                output3 << ":  ";
+            if (!input3.eof()) {
+                if (str[str.length()-1] == '\"')
+                    output3 << " :  ";
+                else
+                    output3 << ";";
+            }
             else break;
         }
         input3.close();
@@ -225,6 +229,7 @@ public:
             if (Res[i].num2 != Res[i-1].num2)
                 fileMistake << Res[i].mistake2 <<"  "<<Res[i].num2<< endl;
         }
+        fileMistake << endl << endl << endl;
         
     };
     
@@ -272,6 +277,39 @@ public:
             else break;
         }
     };
+    void Validator () {
+        ifstream fileOld;
+        ofstream fileMistake;
+        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+        fileMistake.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringMistake.txt", ios_base::app);
+       
+        string str;
+        while(true)
+        {
+            int flagK1 = 0;
+            getline(fileOld, str, ':');
+            for (int i = 1; i < str.length(); i++) {
+                    if (str[i] == '\"') {
+                        if (str[i-1] != '\\')
+                        flagK1++;
+                    }
+            }
+            if (flagK1 %2 == 0 && str[str.length()-1] == ' ') {
+                continue;
+            }
+                else if (flagK1 %2 != 0 && str[str.length()-1] != ' ') {
+                    continue;
+                }
+                    else {
+                        fileMistake << endl <<"//////////////////////////////////////////////////////////////////////" << endl<< endl;
+                        fileMistake << "ERROR: missed ( \" ) in " << "[ " << str << " ]" << endl << endl;
+                        flagK1 = 0;
+                    }
+            if (!fileOld.eof())
+                continue;
+            else break;
+        }
+    };
 };
 
 int main()
@@ -280,5 +318,6 @@ int main()
     File.TabEnter();
     File.Tabulation();
     File.LongString();
+    File.Validator();
     return 0;
 }
