@@ -105,9 +105,9 @@ public:
         fileNew.close();
     };
     struct CheckMisstakeResult {
-        string mistake1, mistake2;
-        Pair pair1,pair2;
-        long num1, num2;
+        string mistake;
+        Pair pair;
+        long num;
     };
 //    CheckMisstakeResult CheckMisstake(vector <Pair> PairVec1, vector <Pair> PairVec2, long num1, long num2) {
 //       // Pair pair;
@@ -148,38 +148,38 @@ public:
         vector <unsigned long> tab = {0};
         vector <Pair> PairVec1;
         vector <Pair> PairVec2;
-        unsigned long count = 0;
+        unsigned long count = 1;
+        Pair pair1, pair2;
         while(true)
         {
             getline(fileOld, str, '\n');
-            pos1 += str.size() - 1;
+            pos1 += str.size() ;
+           
             if (str[str.size()-1] == '[') {
-                Pair pair;
-                PairVec1.push_back(pair);
-                pair.Number = count;
-                pair.First = pos1;
-                pair.Second = -1;
+//                Pair pair;
+                PairVec1.push_back(pair1);
+                pair1.Number = count;
+                pair1.First = pos1;
+                pair1.Second = -1;
                 tab.push_back(tab.size());
-                pair.CountTab = tab[tab.size()-1];
+                pair1.CountTab = tab[tab.size()-1];
             }
-            else if (str[str.size()-1] == ']') {
-                Pair pair;
-                pair = PairVec1[PairVec1.size()-1];
-                pair.Second = pos1;
+             if (str[str.size()-1] == ']') {
+               // Pair pair;
+                PairVec1[PairVec1.size()-1].Second = pos1;
             }
-            else if (str[str.size()-1] == '{') {
-                Pair pair;
-                PairVec2.push_back(pair);
-                pair.Number = count;
-                pair.First = pos1;
-                pair.Second = -1;
+             if (str[str.size()-1] == '{') {
+                //Pair pair;
+                PairVec2.push_back(pair2);
+                pair2.Number = count;
+                pair2.First = pos1;
+                pair2.Second = -1;
                 tab.push_back(tab.size());
-                pair.CountTab = tab[tab.size()-1];
+                pair2.CountTab = tab[tab.size()-1];
             }
             else if (str[str.size()-1] == '}') {
-                Pair pair;
-                pair = PairVec2[PairVec2.size()-1];
-                pair.Second = pos1;
+               // Pair pair;
+                PairVec2[PairVec2.size()-1].Second = pos1;
             }
 //            for ( auto i = 0; i < str.size()-1; i++) {
 //                if (str) {
@@ -204,30 +204,32 @@ public:
         fileNew.close();
         ofstream fileMistake;
         fileMistake.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringMistake.txt");
-        CheckMisstakeResult result;
-        
-        vector <CheckMisstakeResult> Res;
+        CheckMisstakeResult result1, result2;
+        cout <<PairVec1[1].First << "  " <<PairVec1[1].Second << "  " << PairVec1[1].Number<< endl;
+        vector <CheckMisstakeResult> Res1, Res2;
         for (auto i = 0; i < PairVec1.size(); i++){
-            if ((PairVec1[i].First > 0)&&(PairVec1[i].Second == -1)) {
-                result.mistake1 = "ERROR : EXPECTED ']' for string №";
-                result.pair1 = PairVec1[i];
-                result.num1 = PairVec1[i].Number;
-                Res.push_back(result);
+            if (PairVec1[i].Second == -1) {
+                result1.mistake = "ERROR : EXPECTED ']' for string №";
+                result1.pair = PairVec1[i];
+                result1.num = PairVec1[i].Number;
+                Res1.push_back(result1);
             }
         }
         for (auto i = 0; i < PairVec2.size(); i++){
-            if ((PairVec2[i].First > 0)&&(PairVec2[i].Second == -1)) {
-                result.mistake2 = "ERROR : EXPECTED '}' for string №";
-                result.pair2 = PairVec2[i];
-                result.num2 = PairVec2[i].Number;
-                Res.push_back(result);
+            if (PairVec2[i].Second == -1) {
+                result2.mistake = "ERROR : EXPECTED '}' for string №";
+                result2.pair = PairVec2[i];
+                result2.num = PairVec2[i].Number;
+                Res2.push_back(result2);
             }
         }
-        for(auto i= 0 ;i<Res.size();i++){
-            if (Res[i].num1 != Res[i-1].num1)
-                fileMistake << Res[i].mistake1 <<"  "<<Res[i].num1<< endl;
-            if (Res[i].num2 != Res[i-1].num2)
-                fileMistake << Res[i].mistake2 <<"  "<<Res[i].num2<< endl;
+        for(auto i= 0 ;i<Res1.size();i++){
+            if (Res1[i].num != Res1[i-1].num)
+                fileMistake << Res1[i].mistake <<"  "<<Res1[i].num<< endl;
+        }
+        for(auto i= 0 ;i<Res1.size();i++){
+            if (Res2[i].num != Res2[i-1].num)
+                fileMistake << Res2[i].mistake <<"  "<<Res2[i].num<< endl;
         }
         fileMistake << endl << endl << endl;
         
