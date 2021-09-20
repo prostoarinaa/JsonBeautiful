@@ -312,6 +312,67 @@ public:
             else break;
         }
     };
+    struct t1t2 {
+        unsigned long t1 = 0;
+        unsigned long t2 = 0;
+    };
+    void xmlcode () {
+        ifstream fileOld;
+        ofstream fileXML;
+        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+        fileXML.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml.txt");
+       
+        fileXML << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" << endl << "<0>" << endl;
+        string str, str1;
+        int timeiforkov=0;
+        vector <t1t2> Coordin;
+        string timestr1 = "", timestr2 = "";
+        while(true)
+        {
+            t1t2 coordin;
+            int time1 = 0, time2 = 0;
+            getline(fileOld, str, ':');
+            for (int i = 0; i< str.length();i++){
+                if (str[i] == '\"' && str[i-1] != '\\'  && timeiforkov != 1) {
+                    str[i] = '<';
+                    time1 = i;
+                    coordin.t1 = time1;
+                    timeiforkov = 1;
+                    continue;
+                }
+                if (str[i] == '\"' && timeiforkov == 1 && str[i-1] != '\\' ) {
+                    str[i] = '>';
+                    time2 = i;
+                    coordin.t2 = time2;
+                    timeiforkov = 0;
+                    continue;
+                }
+             
+                
+            }
+            
+            timestr1 = str.substr(time1, time2);
+            timestr2 = "</" + str.substr(time1+1, time2);
+            cout << timestr1<< endl; cout << timestr2<< endl;
+            if (!fileOld.eof())
+                fileXML << str;
+            else break;
+        }
+        fileOld.close();
+        fileXML.close();
+        
+        long count = 0;
+        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml.txt");
+        fileXML.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml2.txt");
+        while(true)
+        {
+            count++;
+            getline(fileOld, str, '[');
+            timestr1 = str.substr(Coordin[count].t1, Coordin[count].t2);
+            getline(fileOld, str1, ']');
+            
+            
+    };
 };
 
 int main()
@@ -320,6 +381,7 @@ int main()
     File.TabEnter();
     File.Tabulation();
     File.LongString();
-    File.Validator();
+   // File.Validator();
+    File.xmlcode();
     return 0;
 }
