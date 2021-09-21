@@ -11,7 +11,10 @@ public:
         unsigned long Number;
         unsigned long CountTab;
         unsigned long First;
+        unsigned long First1;
         unsigned long Second;
+        unsigned long Second1;
+        string ForXML;
     };
 public:
     void TabEnter(){
@@ -326,34 +329,46 @@ public:
         string str, str1;
         int timeiforkov=0;
         vector <t1t2> Coordin;
+        vector <string> repeatstring;
         string timestr1 = "", timestr2 = "";
+        unsigned long count =0;
         while(true)
         {
             t1t2 coordin;
             int time1 = 0, time2 = 0;
+            
             getline(fileOld, str, ':');
+            count +=str.length();
+           // cout << count<< endl;
             for (int i = 0; i< str.length();i++){
                 if (str[i] == '\"' && str[i-1] != '\\'  && timeiforkov != 1) {
                     str[i] = '<';
                     time1 = i;
-                    coordin.t1 = time1;
+                    coordin.t1 = time1+count;
                     timeiforkov = 1;
                     continue;
                 }
                 if (str[i] == '\"' && timeiforkov == 1 && str[i-1] != '\\' ) {
                     str[i] = '>';
                     time2 = i;
-                    coordin.t2 = time2;
+                    coordin.t2 = time2+count;
                     timeiforkov = 0;
                     continue;
                 }
-             
+                if (coordin.t1>0 && coordin.t2>0) {
+                    Coordin.push_back(coordin);
+                    coordin.t1=0;
+                    coordin.t2=0;
+                }
                 
             }
             
             timestr1 = str.substr(time1, time2);
             timestr2 = "</" + str.substr(time1+1, time2);
             cout << timestr1<< endl; cout << timestr2<< endl;
+            repeatstring.push_back(timestr1);
+            cout << time1+count << " " << time2 +count<< endl;
+            cout << Coordin[50].t1 << "  " <<Coordin[50].t2<< endl;
             if (!fileOld.eof())
                 fileXML << str;
             else break;
@@ -361,17 +376,109 @@ public:
         fileOld.close();
         fileXML.close();
         
-        long count = 0;
+        unsigned long pos = 0, count1 =0, k = 0;
+        vector <Pair> PairVec1;
+        vector <Pair> PairVec2;
+
+        vector <unsigned long> tab = {0};
+        Pair pair1, pair2;
+     //   unsigned long fromcoor = 0;
         fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml.txt");
         fileXML.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml2.txt");
         while(true)
         {
-            count++;
-            getline(fileOld, str, '[');
-            timestr1 = str.substr(Coordin[count].t1, Coordin[count].t2);
-            getline(fileOld, str1, ']');
+            getline(fileOld, str, '\n');
+           // count1++;
+            pos += str.size() ;
+//            if (str[str.size()-1] == '<' && str[str.size()-2] != '/') {
+//                PairVec1.push_back(pair1);
+//                pair1.First1 = pos;
+//                pair1.Second1 = -1;
+//            }
+//            if (str[str.size()-1] == '>' && str[str.size()-2] != '/' && pair1.Second1 == -1) {
+//                pair1.Second1 = pos;
+//
+//                pair1.ForXML = str.substr(pair1.First);
+//            }
+            if (str[str.size()-1] == '[') {
+                //Pair pair;
+                PairVec1.push_back(pair1);
+//                if (str[str.size()-5] == '>') {
+////                    PairVec1.push_back(pair1);
+//                    pair1.Second1 = pos;
+//                    int k=0;
+//                    while (str[str.size()-5-k] != '<') {
+//                        pair1.First1 = str.size()-4-k;
+//                        k++;
+//                    }
+//                    pair1.ForXML = str.substr(pair1.First1, pair1.Second1);
+//                }
+                pair1.Number = count1;
+                pair1.First = pos;
+                pair1.Second = -1;
+                
+                tab.push_back(tab.size());
+                pair1.CountTab = tab[tab.size()-1];
+                
+            }
+             if (str[str.size()-1] == ']') {
+               // Pair pair;
+//                 PairVec1.push_back(pair1);
+                PairVec1[PairVec1.size()-1].Second = pos;
+                
+            }
+//             if (str[str.size()-1] == '{') {
+//                 if (str[str.size()-4] == '>') {
+//                     PairVec2.push_back(pair2);
+//                     pair2.Second1 = pos;
+//                     int k=0;
+//                     while (str[str.size()-4-k] != '<') {
+//                         pair2.First1 = str.size()-4-k;
+//                         k++;
+//                     }
+//                     pair2.ForXML = str.substr(pair2.First1, pair2.Second1);
+//                 }
+//                 pair2.Number = count;
+//                 pair2.First = pos;
+//                 pair2.Second = -1;
+//                 
+//                 tab.push_back(tab.size());
+//                 pair2.CountTab = tab[tab.size()-1];
+//
+//            }
+//             if (str[str.size()-1] == '}') {
+//               // Pair pair;
+//                
+//                PairVec2[PairVec2.size()-1].Second = pos;
+//            }
+//            for ( auto i = 0; i < str.size()-1; i++) {
+//                if (str) {
+//                }
+//            }
+            count1++;
+            string tabstr = "",s ="";
+            int k=0;
+            if (!fileOld.eof()) {
+                fileXML << "\n";
+                for(auto i = 0; i < tab.size(); i++){
+                    tabstr += "   ";
+                    k++;
+                }
+                fileXML << tabstr;
+                fileXML << str;
+              
+            }
+            else break;
+            if (str[str.size()-1] == ']' || str[str.size()-1] == '}') {
+             //   fileXML << PairVec1[k].ForXML;
+                tab.pop_back();}
+//            else if (str[str.size()-1] == '}') {
+//              //  fileXML << PairVec2[k].ForXML;
+//                tab.pop_back();
+//            }
+//            else continue;
             
-            
+        }
     };
 };
 
