@@ -597,6 +597,7 @@ public:
                  str = str.substr(0,str.size()-1) +PairVec1[PairVec1.size()-1].Key2 + str.substr(str.size()-1);
                //  PairVec1[PairVec1.size()-1]. =
             }
+            
              if (str[str.size()-1] == '{') {
                 //Pair pair;
                 PairVec2.push_back(pair2);
@@ -641,8 +642,9 @@ int main()
     File.TabEnter();
     File.Tabulation();
     File.LongString();
-   // File.Validator();
- //  File.xmlcode();
     File.xml();
+  //  File.Validator();
+ //  File.xmlcode();
+  //  File.xml();
     return 0;
 }
