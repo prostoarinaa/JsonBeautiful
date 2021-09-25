@@ -12,7 +12,7 @@ public:
         unsigned long CountTab;
         unsigned long First;
         unsigned long First1;
-        unsigned long Second;
+        unsigned long Second = 0;
         unsigned long Second1;
         string ForXML = "";
         string Key = "";
@@ -20,96 +20,62 @@ public:
         string Key2 = "";
     };
 public:
-    void TabEnter(){
-        ifstream fileOld;
-        ofstream fileNew;
-        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringOLD.txt");
-        fileNew.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-        string str = "", s;
-        while(true)
-        {
-            getline(fileOld, str, '[');
-            fileNew << str;
-            if (!fileOld.eof())
-                fileNew << "[\n";
-            else break;
-        }
-        ifstream input("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-        ofstream output("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-        while(true)
-        {
-            getline(input, str, ']');
-            output << str;
-            
-            if (!input.eof()) {
-                if (str[str.length()-1] != '\n')
-                    output << "\n]\n";
-                else
-                    output << "]\n";
-            }
-            else break;
-        }
-        input.close();
-        output.close();
-        ifstream input1("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-        ofstream output1("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-        while(true)
-        {
-            getline(input1, str, '{');
-            output1 << str;
-            if (!input1.eof())
-                output1 << "{\n";
-            else break;
-        }
-        input1.close();
-        output1.close();
-        ifstream input2("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-        ofstream output2("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-        while(true)
-        {
-            getline(input2, str, '}');
-            output2 << str;
-            if (!input2.eof()) {
-                if (str[str.length()-1] != '\n')
-                    output2 << "\n}\n";
-                else
-                    output2 << "}\n";
-            }
-            else break;
-        }
-        input2.close();
-        output2.close();
-        ifstream input3("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-        ofstream output3("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-        while(true)
-        {
-            getline(input3, str, ':');
-            output3 << str;
-            if (!input3.eof()) {
-                if (str[str.length()-1] == '\"')
-                    output3 << " :  ";
-                else
-                    output3 << ";";
-            }
-            else break;
-        }
-        input3.close();
-        output3.close();
-        ifstream input4("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-        ofstream output4("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-        while(true)
-        {
-            getline(input4, str, ',');
-            output4 << str;
-            if (!input4.eof())
-                output4 << "\n";
-            else break;
-        }
-        input4.close();
-        output4.close();
-        fileOld.close();
-        fileNew.close();
-    };
+//    void TabEnter(){
+//        string str = "", s;
+//
+//        ifstream input3("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringOLD.txt");
+//        ofstream output3("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+//        while(true)
+//        {
+//            getline(input3, str, ':');
+//            for (int i = 0; i < str.size(); i++) {
+//                if (str[i] == ',') {
+//                    str = str.substr(0, i) +"," + "\n"+ str.substr(i+1, str.size());
+//                }
+//                if (str[i] == '[') {
+//                    str = str.substr(0, i) +"[\n"+ str.substr(i+1, str.size());
+//                }
+//
+//                if (str[i] == '{') {
+//                    str = str.substr(0, i) +"{\n"+ str.substr(i+1, str.size());
+//                }
+//            }
+//            output3 << str;
+//            if (!input3.eof()) {
+//                if (str[str.length()-1] == '\"')
+//                    output3 << " :  ";
+//                else
+//                    output3 << ";";
+//            }
+//            else break;
+//        }
+//        input3.close();
+//        output3.close();
+//        ifstream input2("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+//        ofstream output2("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
+//        while(true)
+//        {
+//            getline(input2, str, '}');
+//            for (int i = 0; i < str.size(); i++) {
+//                if (str[i] == ']') {
+//                    if (str[i-1] != '\n') {
+//                        str = str.substr(0, i) +"\n" + "]\n"+ str.substr(i+1, str.size());
+//                    }
+//                    else  str = str.substr(0, i) +"]\n"+ str.substr(i+1, str.size());
+//                }
+//            }
+//            output2 << str;
+//            if (!input2.eof()) {
+//                if (str[str.length()-1] != '\n')
+//                    output2 << "\n}\n";
+//                else
+//                    output2 << "}\n";
+//            }
+//            else break;
+//        }
+//        input2.close();
+//        output2.close();
+//    };
     struct CheckMisstakeResult {
         string mistake;
         Pair pair;
@@ -117,12 +83,33 @@ public:
     };
 
     void Tabulation() {
-        ifstream fileOld;
+        ifstream fileOld, fileCFG;
         ofstream fileNew;
-        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-        fileNew.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
+        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
+        fileNew.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+//        fileCFG.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/tabxml.txt");
+//
+//        string str = "", s, strcfg,strtab="";
+//        int counttab = 0;
+//        while(true)
+//        {
+//            getline(fileCFG, strcfg, '\n');
+//
+//            if (!fileCFG.eof()) {
+//                for (int i = 0; i < strcfg.size(); i++) {
+//                if(strcfg[i] == 'Q')
+//                    counttab++;
+//                }
+//                continue;
+//            }
+//
+//            else break;
+//        }
+//        for (int i = 0; i < counttab; i++) {
+//            strtab += "  ";
+//        }
         
-        string str = "",s;
+     //   cout << "S" << strtab << endl;
         unsigned long pos1 = 0;
         vector <unsigned long> tab = {0};
         vector <Pair> PairVec1;
@@ -135,41 +122,35 @@ public:
             pos1 += str.size() ;
            
             if (str[str.size()-1] == '[') {
-//                Pair pair;
                 PairVec1.push_back(pair1);
                 pair1.Number = count;
                 pair1.First = pos1;
-                pair1.Second = -1;
+               // pair1.Second = 1;
                 tab.push_back(tab.size());
                 pair1.CountTab = tab[tab.size()-1];
             }
              if (str[str.size()-1] == ']') {
-               // Pair pair;
                 PairVec1[PairVec1.size()-1].Second = pos1;
+                 cout << PairVec1[PairVec1.size()-1].Number << " " << PairVec1[PairVec1.size()-1].Second  << endl;
             }
              if (str[str.size()-1] == '{') {
-                //Pair pair;
                 PairVec2.push_back(pair2);
                 pair2.Number = count;
                 pair2.First = pos1;
-                pair2.Second = -1;
+              //  pair2.Second = 1;
                 tab.push_back(tab.size());
                 pair2.CountTab = tab[tab.size()-1];
             }
-            else if (str[str.size()-1] == '}') {
-               // Pair pair;
+             if (str[str.size()-1] == '}') {
                 PairVec2[PairVec2.size()-1].Second = pos1;
+                 cout << PairVec2[PairVec2.size()-1].Number << " " << PairVec2[PairVec2.size()-1].Second  << endl;
             }
-//            for ( auto i = 0; i < str.size()-1; i++) {
-//                if (str) {
-//                }
-//            }
             count++;
             string tabstr = "";
             if (!fileOld.eof()) {
                 fileNew << "\n";
                 for(auto i = 0; i < tab.size(); i++){
-                    tabstr += "   ";
+                    tabstr += strtab;
                 }
                 fileNew << tabstr;
                 fileNew << str;
@@ -184,10 +165,10 @@ public:
         ofstream fileMistake;
         fileMistake.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringMistake.txt");
         CheckMisstakeResult result1, result2;
-        cout <<PairVec1[1].First << "  " <<PairVec1[1].Second << "  " << PairVec1[1].Number<< endl;
+    cout <<PairVec2[5].First << "  " <<PairVec2[5].Second << "  " << PairVec2[5].Number<< endl;
         vector <CheckMisstakeResult> Res1, Res2;
         for (auto i = 0; i < PairVec1.size(); i++){
-            if (PairVec1[i].Second == -1) {
+            if (PairVec1[i].Second == 0) {
                 result1.mistake = "ERROR : EXPECTED ']' for string №";
                 result1.pair = PairVec1[i];
                 result1.num = PairVec1[i].Number;
@@ -195,7 +176,7 @@ public:
             }
         }
         for (auto i = 0; i < PairVec2.size(); i++){
-            if (PairVec2[i].Second == -1) {
+            if (PairVec2[i].Second == 0) {
                 result2.mistake = "ERROR : EXPECTED '}' for string №";
                 result2.pair = PairVec2[i];
                 result2.num = PairVec2[i].Number;
@@ -217,8 +198,8 @@ public:
     void LongString() {
         ifstream fileOld;
         ofstream fileNew;
-        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-        fileNew.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+        fileNew.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
 
         string str, timestr;
         long isFirstStr = 0;
@@ -261,7 +242,7 @@ public:
     void Validator () {
         ifstream fileOld;
         ofstream fileMistake;
-        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
         fileMistake.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringMistake.txt", ios_base::app);
        
         string str;
@@ -299,7 +280,7 @@ public:
     void xml () {
         ifstream fileOld;
         ofstream fileXML;
-        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+        fileOld.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
         fileXML.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml.txt");
        
         fileXML << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" << endl << "<0>" << endl;
@@ -345,8 +326,7 @@ public:
                 }
                //     cout << timestr<< " "<< endl;
                 timestr = "<" + str.substr(p1+1, p2-p1-1) + ">";
-                  //  str.erase(1, p3);
-                    timestr1 = "</"+timestr.substr(1);
+                timestr1 = "</"+timestr.substr(1);
 //cout <<p3 <<" str.substr  "<<str.substr(p3, str.size()) << endl;
                 str = timestr + str.substr(p3+3, str.size()) + timestr1;
                 }
@@ -416,7 +396,6 @@ public:
                 str = str.substr(0,str.size()-1) +PairVec2[PairVec2.size()-1].Key2 + str.substr(str.size()-1);
            }
              if (str[str.size()-1] == '{'  && str[str.size()-4] != ':'  ) {
-                //Pair pair;
                 PairVec2.push_back(pair2);
                 pair2.Number = count;
                 pair2.First = pos1;
@@ -426,13 +405,8 @@ public:
             }
             
              if (str[str.size()-1] == '}' && PairVec2[PairVec2.size()-1].Key == "") {
-               // Pair pair;
                 PairVec2[PairVec2.size()-1].Second = pos1;
             }
-//            for ( auto i = 0; i < str.size()-1; i++) {
-//                if (str) {
-//                }
-//            }
             count++;
             string tabstr = "";
             if (!fileOld.eof()) {
@@ -458,10 +432,10 @@ public:
 int main()
 {
     MakeBeautiful File;
-    File.TabEnter();
-    File.Tabulation();
+  //  File.TabEnter();
+ File.Tabulation();
     File.LongString();
-    File.xml();
+    //File.xml();
     File.Validator();
   //  File.xmlcode();
     File.xml();
