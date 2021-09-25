@@ -116,7 +116,6 @@ public:
         long num;
     };
 
-
     void Tabulation() {
         ifstream fileOld;
         ofstream fileNew;
