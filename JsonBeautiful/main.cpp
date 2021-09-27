@@ -144,6 +144,8 @@ public:
         vector <unsigned long> tab = {0};
         vector <Pair> PairVec1;
         vector <Pair> PairVec2;
+        vector <unsigned long> extra1;
+        vector <unsigned long> extra2;
         unsigned long count = 1;
       //  Pair pair1, pair2;
         while(true)
@@ -164,8 +166,15 @@ public:
             }
              if (str[str.size()-1] == ']') {
                // Pair pair;
-                 int i = 1;
-                 if (PairVec1[PairVec1.size()-1].Second != 1) {
+                 int i = 1, flag = 0;
+                 for (int j =0 ; j< PairVec1.size();j++) {
+                     if (PairVec1[j].Second == 1)
+                         flag++;
+                 }
+                 if (flag == 0) {
+                     extra1.push_back(PairVec1[PairVec1.size()-1].Number);
+                 }
+                 if (PairVec1[PairVec1.size()-1].Second != 1 && flag != 0) {
                      while (PairVec1[PairVec1.size()-i].Second != 1) {
                          i++;
                      }
@@ -173,7 +182,7 @@ public:
                  }
                  else
                      PairVec1[PairVec1.size()-i].Second = pos1;
-                 cout <<  PairVec1[PairVec1.size()-1].Number << "  "<< PairVec1[PairVec1.size()-1].Second << endl<<endl;
+               //  cout <<  PairVec1[PairVec1.size()-1].Number << "  "<< PairVec1[PairVec1.size()-1].Second << endl<<endl;
             }
              if (str[str.size()-1] == '{') {
                 Pair pair2;
@@ -186,8 +195,15 @@ public:
             }
              if (str[str.size()-1] == '}') {
                // Pair pair;
-                 int i = 1;
-                 if (PairVec2[PairVec2.size()-1].Second != 1) {
+                 int i = 1, flag = 0;
+                 for (int j =0 ; j< PairVec2.size();j++) {
+                     if (PairVec2[j].Second == 1)
+                         flag++;
+                 }
+                 if (flag == 0) {
+                     extra2.push_back(PairVec2[PairVec2.size()-1].Number);
+                 }
+                 if (PairVec2[PairVec2.size()-1].Second != 1 && flag != 0) {
                      while (PairVec2[PairVec2.size()-i].Second != 1) {
                          i++;
                      }
@@ -197,7 +213,7 @@ public:
                      PairVec2[PairVec2.size()-i].Second = pos1;
                 // if ( PairVec2[PairVec2.size()-1].Second != -)
                 
-                 cout <<  PairVec2[PairVec2.size()-1].Number << "  "<< PairVec2[PairVec2.size()-1].Second << endl<<endl;
+               //  cout <<  PairVec2[PairVec2.size()-1].Number << "  "<< PairVec2[PairVec2.size()-1].Second << endl<<endl;
             }
 //            for ( auto i = 0; i < str.size()-1; i++) {
 //                if (str) {
@@ -259,6 +275,17 @@ public:
             fileMistake << endl << endl << endl;}
             else
                 fileMistake << "NOT MISSED HERE {" <<endl;
+        if (extra1.size()>0) {
+            for(auto i= 0 ;i<extra1.size();i++){
+                fileMistake << "ERROR: EXTRA ']' for string №" <<extra1[i]<<endl;
+            }
+        }
+        if (extra2.size()>0) {
+            for(auto i= 0 ;i<extra2.size();i++){
+                fileMistake << "ERROR: EXTRA ']' for string №" <<extra2[i]<<endl;
+            }
+        }
+            
         
     };
     
@@ -339,10 +366,7 @@ public:
             else break;
         }
     };
-    struct t1t2 {
-        unsigned long t1 = 0;
-        unsigned long t2 = 0;
-    };
+   
    
     void xml () {
         ifstream fileOld;
@@ -393,11 +417,8 @@ public:
                     }
                     
                 }
-               //     cout << timestr<< " "<< endl;
                 timestr = "<" + str.substr(p1+1, p2-p1-1) + ">";
-                  //  str.erase(1, p3);
                     timestr1 = "</"+timestr.substr(1);
-//cout <<p3 <<" str.substr  "<<str.substr(p3, str.size()) << endl;
                 str = timestr + str.substr(p3+3, str.size()) + timestr1;
                 }
             }
@@ -548,8 +569,9 @@ int main()
     File.LongString("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxmln.txt");
 
     File.Tabulation("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-    File.LongString("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
     File.Validator("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+    File.LongString("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+//    File.Validator("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
     
   //  File.xmlcode();
   
