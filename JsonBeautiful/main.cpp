@@ -111,8 +111,6 @@ public:
         Pair pair;
         long num;
     };
-
-
     void Tabulation(string namefile1, string namefile2) {
         ifstream fileOld, fileCFG;
         ofstream fileNew;
@@ -147,7 +145,6 @@ public:
         vector <unsigned long> extra1;
         vector <unsigned long> extra2;
         unsigned long count = 1;
-      //  Pair pair1, pair2;
         while(true)
         {
             getline(fileOld, str, '\n');
@@ -162,10 +159,8 @@ public:
                 tab.push_back(tab.size());
                 pair1.CountTab = tab[tab.size()-1];
                 PairVec1.push_back(pair1);
-               // cout << str << endl<<endl;
             }
              if (str[str.size()-1] == ']') {
-               // Pair pair;
                  int i = 1, flag = 0;
                  for (int j =0 ; j< PairVec1.size();j++) {
                      if (PairVec1[j].Second == 1)
@@ -182,7 +177,6 @@ public:
                  }
                  else
                      PairVec1[PairVec1.size()-i].Second = pos1;
-               //  cout <<  PairVec1[PairVec1.size()-1].Number << "  "<< PairVec1[PairVec1.size()-1].Second << endl<<endl;
             }
              if (str[str.size()-1] == '{') {
                 Pair pair2;
@@ -211,14 +205,7 @@ public:
                  }
                  else
                      PairVec2[PairVec2.size()-i].Second = pos1;
-                // if ( PairVec2[PairVec2.size()-1].Second != -)
-                
-               //  cout <<  PairVec2[PairVec2.size()-1].Number << "  "<< PairVec2[PairVec2.size()-1].Second << endl<<endl;
             }
-//            for ( auto i = 0; i < str.size()-1; i++) {
-//                if (str) {
-//                }
-//            }
             count++;
             string tabstr = "";
             if (!fileOld.eof()) {
@@ -238,8 +225,6 @@ public:
         fileNew.close();
         ofstream fileMistake;
         fileMistake.open("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringMistake.txt");
-       // CheckMisstakeResult result1, result2;
-     //   cout <<PairVec1[1].First << "  " <<PairVec1[1].Second << "  " << PairVec1[1].Number<< endl;
         vector <CheckMisstakeResult> Res1, Res2;
         for (auto i = 0; i < PairVec1.size(); i++){
             if (PairVec1[i].Second == 1) {
@@ -428,7 +413,6 @@ public:
                 pair1.Number = count;
                 pair1.First = pos1;
                 pair1.Key2 = "";
-              //  pair1.Second = -1;
                 tab.push_back(tab.size());
                 pair1.CountTab = tab[tab.size()-1];
                 PairVec1.push_back(pair1);
@@ -439,7 +423,6 @@ public:
                 pair2.Number = count;
                 pair2.First = pos1;
                 pair2.Key2 = "";
-               // pair2.Second = -1;
                 tab.push_back(tab.size());
                 pair2.CountTab = tab[tab.size()-1];
                  PairVec2.push_back(pair2);
@@ -459,34 +442,22 @@ public:
                     }
                     
                 }
-             //   cout <<p1<<" "<< p2<<endl;
-                //timestr =str.substr(p1+1, p2-p1);
                 timestr = "<" + str.substr(p1+1, p2-p1-1) + ">";
-             //   cout << timestr<< " "<< timestr.substr(1) <<endl;
-               // cout << "NNN" << endl;
-               
+
                 pair1.Key = timestr;
                 pair1.Key2 = "</"+timestr.substr(1);
                 pair1.Number = count;
                 pair1.First = pos1;
-              //  pair1.Second = -1;
                 tab.push_back(tab.size());
                 pair1.CountTab = tab[tab.size()-1];
                 str = timestr +str.substr(p2+1) ;
                 PairVec1.push_back(pair1);
-              //  cout << pair1.Key2 << endl <<endl;
             }
              if (str[str.size()-1] == ']') {
-               // Pair pair;
-                 
+
                 PairVec1[PairVec1.size()-1].Second = pos1;
                  if (PairVec1[PairVec1.size()-1].Key2 != "")
                      str = str + PairVec1[PairVec1.size()-1].Key2;
-//                 for (int i =0 ;i <PairVec1[PairVec1.size()-1].Key2.size();i++ )
-//                 {
-//                     str = " " + str;
-//                 }
-               //  PairVec1[PairVec1.size()-1]. =
             }
             if (str[str.size()-1] == '{' && str[str.size()-4] == ':' ) {
                 Pair pair2;
@@ -503,39 +474,20 @@ public:
                     }
                 }
                 timestr = "<" + str.substr(p1+1, p2-p1-1) + ">";
-              //  cout << timestr << endl;
-//                PairVec2.push_back(pair2);
                 pair2.Key = timestr;
                 pair2.Key2 = "</"+timestr.substr(1);
                 pair2.Number = count;
                 pair2.First = pos1;
-//                pair2.Second = -1;
                 tab.push_back(tab.size());
                 pair2.CountTab = tab[tab.size()-1];
                 str = timestr +str.substr(p2+1) ;
                 PairVec2.push_back(pair2);
-                //cout << pair2.Key2 << endl <<endl;
-//                cout << str << endl<<endl;
             }
             if (str[str.size()-1] == '}') {
                PairVec2[PairVec2.size()-1].Second = pos1;
                 if (PairVec2[PairVec2.size()-1].Key2 != "")
                     str = str +PairVec2[PairVec2.size()-1].Key2;
-           //    cout << str << endl<<endl;
            }
-//             if (str[str.size()-1] == '{'  && str[str.size()-4] != ':'  ) {
-//                //Pair pair;
-//                PairVec2.push_back(pair2);
-//                pair2.Number = count;
-//                pair2.First = pos1;
-////                pair2.Second = -1;
-//                tab.push_back(tab.size());
-//                pair2.CountTab = tab[tab.size()-1];
-//            }
-//
-//             if (str[str.size()-1] == '}' && PairVec2[PairVec2.size()-1].Key == "") {
-//                PairVec2[PairVec2.size()-1].Second = pos1;
-//            }
             count++;
             string tabstr = "";
             if (!fileOld.eof()) {
@@ -551,8 +503,7 @@ public:
             for(auto i = 0; i < str.size(); i++) {
                 if ((str[i] == ']')||(str[i] == '}')) {
                 tab.pop_back();
-                    
-            }
+                }
             }
         }
         fileOld.close();
@@ -569,12 +520,9 @@ int main()
     File.LongString("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxml.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringxmln.txt");
 
     File.Tabulation("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
-    File.Validator("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-    File.LongString("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
-//    File.Validator("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
     
-  //  File.xmlcode();
-  
+    File.LongString("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt", "/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstring.txt");
+    File.Validator("/Users/pk/Desktop/OI/TASKS/JsonBeautiful/JsonBeautiful/jsonstringNew.txt");
     return 0;
 }
 
